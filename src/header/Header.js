@@ -1,14 +1,16 @@
+import { Link } from "react-router-dom"
+
 function Header() {
   return (
-    <div class="grid grid-cols-5 gap 4">
+    <nav className="grid grid-cols-5 gap 4">
       <div>
-        <div>LOGO</div>
+        <Link to="/">LOGO</Link>
       </div>
       <div>
-        <div>Swap</div>
+        <Link to="/swapPage">Swap</Link>
       </div>
       <div>
-        <div>Pool</div>
+        <Link to="/poolPage">Pool</Link>
       </div>
       <div>
         <div>Select Chain</div>
@@ -16,7 +18,7 @@ function Header() {
       <div>
         <div>Connect Wallet</div>
       </div>
-    </div>
+    </nav>
   )
 }
 
