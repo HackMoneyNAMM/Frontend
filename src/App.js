@@ -1,6 +1,9 @@
-import Header from "./header/Header";
-
-import { useState } from "react";
+import {BrowserRouter as Router} from 'react-router-dom'
+import { Route, Routes, Switch } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import PoolPage from './PoolPage/PoolPage';
+import SwapPage from './SwapPage/SwapPage';
+import HomePage from './HomePage/HomePage'
 
 const supportedChainsInfo = {
   polygon: {
@@ -36,21 +39,54 @@ const supportedChainsInfo = {
   //}
 }
 
-function App() {
+export default function App() {
 
   const [provider, setProvider] = useState(null)
   const [signer, setSigner] = useState(null)
-
+    
   const [activeChain, setActiveChain] = useState(supportedChainsInfo.polygon.mainnet)
 
-  return (
-    <div>
-      <Header provider={provider} signer={signer} setProvider={setProvider} setSigner={setSigner} activeChain={activeChain} setActiveChain={setActiveChain} supportedChainsInfo={supportedChainsInfo}/>
-      <h1 className="text-3xl font-bold underline">
-        Welcome to our Nested AMM
-      </h1>
-    </div>
-  )
-} 
+  useEffect(() => {
+    console.log("Hello from App.js")
+  })
 
-export default App;
+    return (
+    <Router forceRefresh={true}>
+        <Switch>
+            <Route exact path={"/"}>
+                <HomePage
+                  provider={provider} 
+                  signer={signer} 
+                  setProvider={setProvider} 
+                  setSigner={setSigner} 
+                  activeChain={activeChain} 
+                  setActiveChain={setActiveChain} 
+                  supportedChainsInfo={supportedChainsInfo}
+            />
+            </Route>
+            <Route exact path={"/PoolPage"} >
+                <PoolPage
+                  provider={provider} 
+                  signer={signer} 
+                  setProvider={setProvider} 
+                  setSigner={setSigner} 
+                  activeChain={activeChain} 
+                  setActiveChain={setActiveChain} 
+                  supportedChainsInfo={supportedChainsInfo}
+                />
+            </Route>
+            <Route exact path={"/SwapPage"} >
+                <SwapPage
+                  provider={provider} 
+                  signer={signer} 
+                  setProvider={setProvider} 
+                  setSigner={setSigner} 
+                  activeChain={activeChain} 
+                  setActiveChain={setActiveChain} 
+                  supportedChainsInfo={supportedChainsInfo}
+                />
+            </Route>
+        </Switch>
+    </Router>
+    );
+}

@@ -1,21 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import PoolPage from './PoolPage/PoolPage';
 import SwapPage from './SwapPage/SwapPage';
+import { useState } from 'react';
+import App from './App';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App/>}/>
-      <Route path="PoolPage" element={<PoolPage/>} />
-      <Route path="SwapPage" element={<SwapPage/>} />
-    </Routes>
-  </BrowserRouter>
+  <React.StrictMode>
+    <App/>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

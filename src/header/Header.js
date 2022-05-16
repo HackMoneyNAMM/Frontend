@@ -3,11 +3,12 @@ import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
+import { useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 
 function Header(props) {
-
+  
   async function connectWallet(){
-    console.log(props)
     const providerOpts = {
     
       
@@ -42,8 +43,10 @@ function Header(props) {
 
     const instance = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(instance)
+    console.log(provider)
     props.setProvider(provider)
     props.setSigner(provider.getSigner())
+    //console.log(props)
   }
 
   function setActiveChain(value, props) {
@@ -73,10 +76,10 @@ function Header(props) {
         <Link to="/">LOGO</Link>
       </div>
       <div>
-        <Link to="/swapPage">Swap</Link>
+        <Link to="/SwapPage">Swap</Link>
       </div>
       <div>
-        <Link to="/poolPage">Pool</Link>
+        <Link to="/PoolPage">Pool</Link>
       </div>
       <div>
         <label>Chain: </label>
@@ -93,6 +96,9 @@ function Header(props) {
       </div>
       <div>
         <button onClick={connectWallet}>Connect Wallet</button>
+      </div>
+      <div>
+        {props.provider ? props.provider.provider.selectedAddress : ""}
       </div>
     </nav>
   )
