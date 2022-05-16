@@ -1,9 +1,10 @@
-import {BrowserRouter as Router} from 'react-router-dom'
+import {BrowserRouter as Router, useLocation} from 'react-router-dom'
 import { Route, Routes, Switch } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PoolPage from './PoolPage/PoolPage';
 import SwapPage from './SwapPage/SwapPage';
 import HomePage from './HomePage/HomePage'
+import Header from './header/Header'
 
 const supportedChainsInfo = {
   polygon: {
@@ -39,54 +40,53 @@ const supportedChainsInfo = {
   //}
 }
 
-export default function App() {
+export default function App(props) {
 
   const [provider, setProvider] = useState(null)
   const [signer, setSigner] = useState(null)
     
   const [activeChain, setActiveChain] = useState(supportedChainsInfo.polygon.mainnet)
 
-  useEffect(() => {
-    console.log("Hello from App.js")
-  })
+  const location = useLocation()
+
+  const propObj = {
+    provider:provider, 
+    signer:signer, 
+    setProvider:setProvider, 
+    setSigner:setSigner, 
+    activeChain:activeChain, 
+    setActiveChain:setActiveChain, 
+    supportedChainsInfo:supportedChainsInfo,
+    location: location,
+  }
 
     return (
-    <Router forceRefresh={true}>
+    
         <Switch>
-            <Route exact path={"/"}>
-                <HomePage
-                  provider={provider} 
-                  signer={signer} 
-                  setProvider={setProvider} 
-                  setSigner={setSigner} 
-                  activeChain={activeChain} 
-                  setActiveChain={setActiveChain} 
-                  supportedChainsInfo={supportedChainsInfo}
-            />
+            <Route path="/pool-page">
+              <Header propObj={propObj}/>
+              <PoolPage
+                propObj={propObj}
+                pageId={Date.now()}
+              />  
             </Route>
-            <Route exact path={"/PoolPage"} >
-                <PoolPage
-                  provider={provider} 
-                  signer={signer} 
-                  setProvider={setProvider} 
-                  setSigner={setSigner} 
-                  activeChain={activeChain} 
-                  setActiveChain={setActiveChain} 
-                  supportedChainsInfo={supportedChainsInfo}
-                />
+
+            <Route path="/swap-page">
+              <Header propObj={propObj}/>
+              <SwapPage
+                propObj={propObj}
+                pageId={Date.now()}
+              />
             </Route>
-            <Route exact path={"/SwapPage"} >
-                <SwapPage
-                  provider={provider} 
-                  signer={signer} 
-                  setProvider={setProvider} 
-                  setSigner={setSigner} 
-                  activeChain={activeChain} 
-                  setActiveChain={setActiveChain} 
-                  supportedChainsInfo={supportedChainsInfo}
-                />
+
+            <Route exact path="/">
+            <Header propObj={propObj}/>
+              <HomePage
+                propObj={propObj}
+                pageId={Date.now()}
+              />
+            
             </Route>
         </Switch>
-    </Router>
     );
 }

@@ -11,12 +11,11 @@ function Header(props) {
   async function connectWallet(){
     const providerOpts = {
     
-      
       walletconnect: {
         package: WalletConnectProvider,
         options: {
           rpc: {
-            [props.activeChain.chainId]: props.activeChain.rpc
+            [props.propObj.activeChain.chainId]: props.propObj.activeChain.rpc
           }
         }
       },
@@ -26,7 +25,7 @@ function Header(props) {
         options: {
           appName: "HackMoney NAMM",
           rpc: {
-            [props.activeChain.chainId]: props.activeChain.rpc
+            [props.propObj.activeChain.chainId]: props.propObj.activeChain.rpc
           }
         }
       }
@@ -44,8 +43,8 @@ function Header(props) {
     const instance = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(instance)
     console.log(provider)
-    props.setProvider(provider)
-    props.setSigner(provider.getSigner())
+    props.propObj.setProvider(provider)
+    props.propObj.setSigner(provider.getSigner())
     //console.log(props)
   }
 
@@ -73,17 +72,17 @@ function Header(props) {
   return (
     <nav className="grid grid-cols-5 gap 4">
       <div>
-        <Link to="/">LOGO</Link>
+        <Link to={"/"}>LOGO</Link>
       </div>
       <div>
-        <Link to="/SwapPage">Swap</Link>
+        <Link to={"/swap-page"}>Swap</Link>
       </div>
       <div>
-        <Link to="/PoolPage">Pool</Link>
+        <Link to={"/pool-page"}>Pool</Link>
       </div>
       <div>
         <label>Chain: </label>
-        <select name="chains" id="chains" onChange={(e) => setActiveChain(e.target.value, props)}>
+        <select name="chains" id="chains" onChange={(e) => setActiveChain(e.target.value, props.propObj)}>
           <optgroup label="Mainnets">
             <option value="Matic">Polygon</option>
             <option value="Arbitrum One">Arbitrum</option>
@@ -98,7 +97,7 @@ function Header(props) {
         <button onClick={connectWallet}>Connect Wallet</button>
       </div>
       <div>
-        {props.provider ? props.provider.provider.selectedAddress : ""}
+        {props.propObj.provider ? props.propObj.provider.provider.selectedAddress : ""}
       </div>
     </nav>
   )

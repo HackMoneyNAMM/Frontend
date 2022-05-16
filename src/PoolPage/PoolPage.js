@@ -23,8 +23,8 @@ function PoolPage(props) {
   const [pools, setPools] = useState([])
   
   useEffect(()=>{
-    console.log(props)
-  })
+    
+  }, [])
 
   async function makePool() {
     console.log("Making Pool");
@@ -36,14 +36,13 @@ function PoolPage(props) {
     setPools(poolArray);
     console.log(pools);
 
-    const contract = new ethers.Contract(address, abi, props.provider);
-    const contractWithSigner = contract.connect(props.signer);
+    const contract = new ethers.Contract(address, abi, props.propObj.provider);
+    const contractWithSigner = contract.connect(props.propObj.signer);
     await contractWithSigner.newPool(["0x61bbc4a1a16b2e1c2f2e0295156e8e7ff07d9cc8"]);
   }
 
   return (
-    <div>
-      <Header provider={props.provider} signer={props.signer} setProvider={props.setProvider} setSigner={props.setSigner} activeChain={props.activeChain} setActiveChain={props.setActiveChain} supportedChainsInfo={props.supportedChainsInfo}/>
+    <div key={props.pageId}>
       <h1 className="text-3xl">
         Pool Page
       </h1>
@@ -52,7 +51,7 @@ function PoolPage(props) {
       </div>
       <PoolList toBeListed = {pools}/>
       <div>
-        {props.provider ? props.provider.provider.selectedAddress : ""}
+        {props.propObj.provider ? props.propObj.provider.provider.selectedAddress : ""}
       </div>
     </div>
     

@@ -52,5 +52,8 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.0.24"
+  },
+  "overrides": {
+    "react-error-overlay": "6.0.9"
   }
 }
