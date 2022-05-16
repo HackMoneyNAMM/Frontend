@@ -1,7 +1,5 @@
-import Header from "../header/Header";
 import { useEffect } from "react";
 
-import { useState } from "react";
 
 function HomePage(props) {
 

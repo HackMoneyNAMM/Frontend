@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import Header from "../header/Header";
 import { address, abi } from "../Settings/MumbaiDeploy";
 
 const { ethers } = require("ethers");

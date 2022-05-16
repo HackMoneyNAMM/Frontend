@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, useLocation} from 'react-router-dom'
-import { Route, Routes, Switch } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { useState } from 'react';
 import PoolPage from './PoolPage/PoolPage';
 import SwapPage from './SwapPage/SwapPage';
 import HomePage from './HomePage/HomePage'
