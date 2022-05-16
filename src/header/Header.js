@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
-//import WalletConnectProvider from "@walletconnect/web3-provider";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 
 function Header(props) {
@@ -10,7 +10,7 @@ function Header(props) {
     console.log(props)
     const providerOpts = {
     
-      /*
+      
       walletconnect: {
         package: WalletConnectProvider,
         options: {
@@ -18,7 +18,7 @@ function Header(props) {
             [props.activeChain.chainId]: props.activeChain.rpc
           }
         }
-      },*/
+      },
   
       coinbasewallet: {
         package: CoinbaseWalletSDK,

@@ -1,7 +1,5 @@
 import Header from "./header/Header";
 
-import { ethers } from "ethers";
-import Web3Modal from "web3modal";
 import { useState } from "react";
 
 const supportedChainsInfo = {
@@ -53,6 +51,6 @@ function App() {
       </h1>
     </div>
   )
-}
+} 
 
 export default App;
