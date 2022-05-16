@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, useLocation} from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom';
 import { useState } from 'react';
 import PoolPage from './PoolPage/PoolPage';

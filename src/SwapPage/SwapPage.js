@@ -1,4 +1,3 @@
-import Header from "../header/Header";
 import { useEffect } from "react";
 
 function SwapPage(props) {
