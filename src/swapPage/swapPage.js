@@ -1,6 +1,6 @@
 import Header from "../header/Header";
 
-function swapPage() {
+function SwapPage() {
   return (
     <div>
       <Header/>
@@ -11,4 +11,4 @@ function swapPage() {
   )
 }
 
-export default swapPage;
+export default SwapPage;

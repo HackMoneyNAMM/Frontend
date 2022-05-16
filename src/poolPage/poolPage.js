@@ -1,6 +1,6 @@
 import Header from "../header/Header";
 
-function poolPage() {
+function PoolPage() {
   return (
     <div>
       <Header/>
@@ -11,4 +11,4 @@ function poolPage() {
   )
 }
 
-export default poolPage;
+export default PoolPage;
