@@ -5,6 +5,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import { act } from "@testing-library/react";
 
 function Header(props) {
   
@@ -64,6 +65,8 @@ function Header(props) {
       case "Arbitrum Testnet":
         activeChain = props.supportedChainsInfo.arbitrum.testnet
         break
+      default:
+        activeChain = props.activeChain
     }
     console.log("Setting chain to: "+activeChain.name)
     await switchNetwork(activeChain)
