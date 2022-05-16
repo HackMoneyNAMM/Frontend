@@ -48,7 +48,7 @@ function Header(props) {
     //console.log(props)
   }
 
-  function setActiveChain(value, props) {
+  async function setActiveChain(value, props) {
     const chain = value
     let activeChain = "None";
     switch(chain){
@@ -66,8 +66,42 @@ function Header(props) {
         break
     }
     console.log("Setting chain to: "+activeChain.name)
+    await switchNetwork(activeChain)
     props.setActiveChain(activeChain)
+    
   }
+
+  async function switchNetwork(activeChain){
+    console.log("Trying Metamask Network Switch")
+    console.log(props.propObj.provider)
+    try {
+      await props.propObj.provider.provider.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: activeChain.chainId }],
+      });
+    } catch (switchError) {
+      // 4902 error code indicates the chain is missing on the wallet
+      if (switchError.code === 4902) {
+        try {
+          await props.propObj.provider.provider.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: activeChain.chainId,
+                rpcUrls: [activeChain.rpc],
+                chainName: activeChain.name,
+                nativeCurrency: { name: activeChain.tokenName, decimals: activeChain.tokenDecimals, symbol: activeChain.tokenSymbol },
+                blockExplorerUrls: [activeChain.blockExplorer],
+                iconUrls: [activeChain.iconUrl]
+              }
+            ],
+          });
+        } catch (error) {
+           console.error(error)
+        }
+      }
+    }
+  };
 
   return (
     <nav className="grid grid-cols-5 gap 4">

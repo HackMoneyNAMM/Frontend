@@ -11,12 +11,22 @@ const supportedChainsInfo = {
     mainnet: {
       name: "Matic",
       rpc: "https://polygon-rpc.com/",
-      chainId: 137,
+      chainId: "0x89",
+      tokenName: "Matic",
+      tokenDecimals: 18,
+      tokenSymbol: "MM",
+      blockExplorer: "https://polygonscan.com/",
+      iconUrl: ""
     },
     testnet: {
       name: "Matic Mumbai",
       rpc: "https://rpc-mumbai.matic.today",
-      chainId: 80001,
+      chainId: "0x13881",
+      tokenName: "Matic",
+      tokenDecimals: 18,
+      tokenSymbol: "MM",
+      blockExplorer: "https://mumbai.polygonscan.com/",
+      iconUrl: ""
     }
   },
 
@@ -24,12 +34,22 @@ const supportedChainsInfo = {
     mainnet: {
       name: "Arbitrum One",
       rpc: "https://arb1.arbitrum.io/rpc",
-      chainId: 42161
+      chainId: "0xa4b1",
+      tokenName: "Matic",
+      tokenDecimals: 18,
+      tokenSymbol: "MM",
+      blockExplorer: "https://arbiscan.io/",
+      iconUrl: ""
     },
     testnet: {
       name: "Arbitrum Testnet",
       rpc: "https://rinkeby.arbitrum.io/rpc",
-      chainId: 421611
+      chainId: "0x66eeb",
+      tokenName: "Matic",
+      tokenDecimals: 18,
+      tokenSymbol: "MM",
+      blockExplorer: "https://testnet.arbiscan.io/",
+      iconUrl: ""
     }
   },
 
