@@ -2,22 +2,36 @@ import { mumbaiAddress, factoryABI } from "../Settings/FactoryDeploy";
 const { ethers } = require("ethers");
 
 //TestTokenAddrs:
-//
+//T2USD: 0xd9D4bc496Af93606Ea1b083A4373545321A7F6A2
+//TMATIC: 0x5573D015841b69f079A573aB8C722AdFb2285dBd
+//TUSD: 0xA508E164eB7A9DdA63Ec92c251b3aDa4Fc498f7b
 
 export function CreatePoolPage(props){
 
     async function makePool(e) {
+        e.preventDefault()
         const name = e.target.name.value
-        const ticker = e.target.name.value
-        const a = e.target.name.value
-        const b = e.target.name.value
-        const y = e.target.name.value
-        const sigma = e.target.name.value
-        const eta = e.target.name.value
+        const ticker = e.target.ticker.value
+        const a = ethers.utils.hexlify(e.target.a.value)
+        const b = ethers.utils.hexlify(e.target.b.value)
+        const y = ethers.utils.hexlify(e.target.c.value)
+        const sigma = parseInt(e.target.sigma.value)
+        const eta = parseInt(e.target.eta.value)
+
+        console.log({
+            name:name, 
+            ticker: ticker,
+            a: a,
+            b: b,
+            y: y,
+            sigma: sigma,
+            eta: eta
+        })
 
         const contract = new ethers.Contract(mumbaiAddress, factoryABI, props.propObj.provider);
         const contractWithSigner = contract.connect(props.propObj.signer);
-        await contractWithSigner.newPool(name, ticker, [a,b,y], sigma, eta);
+        const tx = await contractWithSigner.newPool(name, ticker, [a,b,y], sigma, eta);
+        console.log(tx);
       }
     
 
@@ -36,27 +50,27 @@ export function CreatePoolPage(props){
                
                 <label>
                     Sigma
-                    <input sigma="sigma"/>
+                    <input name="sigma"/>
                 </label>
                 
                 <label>
                     Eta
-                    <input eta="eta"/>
+                    <input name="eta"/>
                 </label>
                 
                 <label>
                     Token Address A
-                    <input a="a"/>
+                    <input name="a"/>
                 </label>
                 
                 <label>
                     Token Address B
-                    <input b="b"/>
+                    <input name="b"/>
                 </label>
                 
                 <label>
                     Token Address Y
-                    <input c="c"/>
+                    <input name="c"/>
                 </label>
                 
                 <button>Create Pool</button>

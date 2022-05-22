@@ -101,6 +101,7 @@ export default function App(props) {
             </Route>
 
             <Route path="/create-pool">
+              <Header propObj={propObj}/>
               <CreatePoolPage
                 propObj={propObj}
                 pageId={Date.now()}
