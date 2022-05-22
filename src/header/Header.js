@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
-import {factoryABI, mumbaiAddress} from "../Settings/FactoryDeploy"
+import {factoryABI} from "../Settings/FactoryDeploy"
 
 function Header(props) {
   
@@ -110,7 +110,7 @@ function Header(props) {
   };
 
   async function ping(){
-    const contract = new ethers.Contract(mumbaiAddress, factoryABI, props.propObj.provider);
+    const contract = new ethers.Contract(props.propObj.activeChain.deployAddr, factoryABI, props.propObj.provider);
         const contractWithSigner = contract.connect(props.propObj.signer);
         const tx = await contractWithSigner.ping();
         console.log(tx);

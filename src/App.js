@@ -28,7 +28,8 @@ const supportedChainsInfo = {
       tokenDecimals: 18,
       tokenSymbol: "MM",
       blockExplorer: "https://mumbai.polygonscan.com/",
-      iconUrl: ""
+      iconUrl: "",
+      deployAddr: "0x8caf6ac933e70af0d76af7960338ed123e875b5e"
     }
   },
 
@@ -51,7 +52,8 @@ const supportedChainsInfo = {
       tokenDecimals: 18,
       tokenSymbol: "MM",
       blockExplorer: "https://testnet.arbiscan.io/",
-      iconUrl: ""
+      iconUrl: "",
+      deployAddr: ""
     }
   },
 
@@ -113,7 +115,7 @@ export default function App(props) {
             {
               //Something is fucked up here, if i add a preceding path like /pool/:poolTicker, the tailwind errors.
             }
-            <Route path="/:poolTicker">
+            <Route path="/:poolId">
               <SinglePool
                 propObj={propObj}
                 pageId={Date.now()}

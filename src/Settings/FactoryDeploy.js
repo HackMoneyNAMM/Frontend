@@ -1,4 +1,3 @@
-export const mumbaiAddress = "0x8caf6ac933e70af0d76af7960338ed123e875b5e"
 export const factoryABI = [
   {
     "anonymous": false,

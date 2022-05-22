@@ -34,7 +34,7 @@ export function CreatePoolPage(props){
             eta: eta
         })
 
-        const contract = new ethers.Contract(mumbaiAddress, factoryABI, props.propObj.provider);
+        const contract = new ethers.Contract(props.propObj.activeChain.deployAddr, factoryABI, props.propObj.provider);
         const contractWithSigner = contract.connect(props.propObj.signer);
         const tx = await contractWithSigner.newPool(name, ticker, [a,b,y], [aName, bName, yName], sigma, eta);
         console.log(tx);
