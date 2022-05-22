@@ -26,6 +26,7 @@ function SinglePool(props) {
     })
 
     const [tokenBals, setTokenBals] = useState([0,0,0])
+    const [lpBal, setLpBal] = useState(null);
 
     const location = useLocation();
     const data = location.state;
@@ -44,7 +45,8 @@ function SinglePool(props) {
         const contract = new ethers.Contract(pool.LPAddr, ierc20ABI, props.propObj.provider);
         const contractWithSigner = contract.connect(props.propObj.signer);
         const bal = await contractWithSigner.balanceOf(address);
-        console.log(bal);
+        console.log("LPBal:".concat(bal));
+        setLpBal(bal.toString())
     }
 
     async function getUserTokenBals(pool){
@@ -56,7 +58,7 @@ function SinglePool(props) {
             const contract = new ethers.Contract(pool.tokenAddresses[i], ierc20ABI, props.propObj.provider);
             const contractWithSigner = contract.connect(props.propObj.signer);
             const bal = await contractWithSigner.balanceOf(address);
-            console.log(bal);
+            
             tokenBals.push(bal.toString())
         }
 
@@ -66,13 +68,14 @@ function SinglePool(props) {
 
     async function handleDeposit(e){
         e.preventDefault()
-        let amountA = (amounts.amountA);
-        let amountB = (amounts.amountB);
-        let amountY = (amounts.amountY);
+        let amountA = bigify(amounts.amountA);
+        let amountB = bigify(amounts.amountB);
+        let amountY = bigify(amounts.amountY);
         console.log(amountA)
-        const contract = new ethers.Contract(props.propObj.activeChain.deployAddr, poolABI, props.propObj.provider);
+        let pool = data.pools[data.poolId]
+        const contract = new ethers.Contract(pool.poolAddr, poolABI, props.propObj.provider);
         const contractWithSigner = contract.connect(props.propObj.signer);
-        const tx = await contractWithSigner.mint([amountA, amountB, amountY], {gasLimit:1000000000});
+        const tx = await contractWithSigner.mint([amountA, amountB, amountY]);
         console.log(tx);
     }
 
@@ -154,6 +157,7 @@ function SinglePool(props) {
                 </form>
                 
                 <button onClick={handleDeposit}>Deposit</button>
+                <div>LP Bal: {props.propObj.provider ? <div>{lpBal}</div> : null}</div>
             </div>
         )
         
