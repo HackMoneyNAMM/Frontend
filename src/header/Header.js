@@ -9,22 +9,25 @@ function Header(props) {
   async function connectWallet(){
     const providerOpts = {
     
-      walletconnect: {
-        package: WalletConnectProvider,
-        options: {
-          rpc: {
-            [props.propObj.activeChain.chainId]: props.propObj.activeChain.rpc
-          }
-        }
-      },
+      //walletconnect: {
+        //display: {
+          //logo: "data:image/gif;base64,INSERT_BASE64_STRING",
+          //name: "Mobile",
+          //description: "Scan qrcode with your mobile wallet"
+        //},
+        //package: WalletConnectProvider,
+        //options: {
+          //infuraId: "3094aa966fb94b409be37128f029c2ec" // required
+        //}
+      //}
   
       coinbasewallet: {
         package: CoinbaseWalletSDK,
         options: {
-          appName: "HackMoney NAMM",
-          rpc: {
-            [props.propObj.activeChain.chainId]: props.propObj.activeChain.rpc
-          }
+          appName: "NAMM",
+          infuraId: "3094aa966fb94b409be37128f029c2ec",
+          rpc: props.propObj.activeChain.rpc,
+          chainId: props.propObj.activeChain.chainId
         }
       }
   
@@ -33,17 +36,18 @@ function Header(props) {
     //const providerOpts = {}
   
     const web3Modal = new Web3Modal({
-      network: "testnet",
+      //network: "testnet",
       cacheProvider: true,
+      //disableInjectedProvider: true,
       providerOpts
-  });
-
+    });
+    console.log(web3Modal)
+    web3Modal.clearCachedProvider()
     const instance = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(instance)
-    console.log(provider)
     props.propObj.setProvider(provider)
     props.propObj.setSigner(provider.getSigner())
-    //console.log(props)
+    console.log(providerOpts)
   }
 
   async function setActiveChain(value, props) {
@@ -128,10 +132,10 @@ function Header(props) {
         </select>
       </div>
       <div>
-        <button onClick={connectWallet}>Connect Wallet</button>
+        {!props.propObj.provider ? <button onClick={connectWallet}>Connect Wallet</button> : <div>{props.propObj.provider ? props.propObj.provider.provider.selectedAddress : ""}</div>}
       </div>
       <div>
-        {props.propObj.provider ? props.propObj.provider.provider.selectedAddress : ""}
+        
       </div>
     </nav>
   )

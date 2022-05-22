@@ -14,7 +14,6 @@ function HomePage(props) {
         Welcome to our Nested AMM
       </h1>
       <div>
-        {props.propObj.provider ? props.propObj.provider.provider.selectedAddress : ""}
       </div>
     </div>
   )

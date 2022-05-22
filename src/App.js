@@ -5,6 +5,7 @@ import PoolPage from './PoolPage/PoolPage';
 import SwapPage from './SwapPage/SwapPage';
 import HomePage from './HomePage/HomePage'
 import Header from './header/Header'
+import { CreatePoolPage } from './PoolPage/CreatePoolPage';
 
 const supportedChainsInfo = {
   polygon: {
@@ -94,6 +95,13 @@ export default function App(props) {
             <Route path="/swap-page">
               <Header propObj={propObj}/>
               <SwapPage
+                propObj={propObj}
+                pageId={Date.now()}
+              />
+            </Route>
+
+            <Route path="/create-pool">
+              <CreatePoolPage
                 propObj={propObj}
                 pageId={Date.now()}
               />

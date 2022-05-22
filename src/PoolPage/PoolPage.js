@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { address, abi } from "../Settings/MumbaiDeploy";
-
-const { ethers } = require("ethers");
+import { Link } from "react-router-dom";
 
 function PoolList(props) {
 
@@ -24,33 +22,18 @@ function PoolPage(props) {
     
   }, [])
 
-  async function makePool() {
-    console.log("Making Pool");
-    const newPool = {
-      name: "TestPool",
-      tokens: []
-    };
-    const poolArray = [...pools, newPool];
-    setPools(poolArray);
-    console.log(pools);
-
-    const contract = new ethers.Contract(address, abi, props.propObj.provider);
-    const contractWithSigner = contract.connect(props.propObj.signer);
-    await contractWithSigner.newPool(["0x61bbc4a1a16b2e1c2f2e0295156e8e7ff07d9cc8"]);
-  }
-
   return (
     <div key={props.pageId}>
-      <h1 className="text-3xl">
-        Pool Page
-      </h1>
-      <div>
-        <button onClick={makePool}>Create Pool</button>
+      <div class="grid grid-cols-2">
+        <h1 className="text-3xl">
+          Pool Page
+        </h1>
+        <Link to ={"/create-pool"}>Create Pool</Link>
       </div>
+      
+      
       <PoolList toBeListed = {pools}/>
-      <div>
-        {props.propObj.provider ? props.propObj.provider.provider.selectedAddress : ""}
-      </div>
+      
     </div>
     
   )
