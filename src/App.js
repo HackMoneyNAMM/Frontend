@@ -83,10 +83,13 @@ export default function App(props) {
   }
 
     return (
-    
+      <div>
+
+      
+        <Header propObj={propObj}/>
         <Switch>
             <Route path="/pool-page">
-              <Header propObj={propObj}/>
+              
               <PoolPage
                 propObj={propObj}
                 pageId={Date.now()}
@@ -94,7 +97,6 @@ export default function App(props) {
             </Route>
 
             <Route path="/swap-page">
-              <Header propObj={propObj}/>
               <SwapPage
                 propObj={propObj}
                 pageId={Date.now()}
@@ -102,28 +104,31 @@ export default function App(props) {
             </Route>
 
             <Route path="/create-pool">
-              <Header propObj={propObj}/>
               <CreatePoolPage
                 propObj={propObj}
                 pageId={Date.now()}
               />
             </Route>
 
+            {
+              //Something is fucked up here, if i add a preceding path like /pool/:poolTicker, the tailwind errors.
+            }
+            <Route path="/:poolTicker">
+              <SinglePool
+                propObj={propObj}
+                pageId={Date.now()}
+              />
+            </Route>
+
             <Route exact path="/">
-            <Header propObj={propObj}/>
               <HomePage
                 propObj={propObj}
                 pageId={Date.now()}
               />
             </Route>
 
-            <Route path="/pool/:poolTicker">
-              <Header propObj={propObj}/>
-              <SinglePool
-                propObj={propObj}
-                pageId={Date.now()}
-              />
-            </Route>
+            
         </Switch>
+      </div>
     );
 }

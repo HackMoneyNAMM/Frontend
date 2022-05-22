@@ -11,7 +11,7 @@ function PoolList(props) {
   console.log(props);
   const poolList = props.toBeListed.map((pool) => 
   <li key={pool.name}>
-    <Link to={{pathname:`/pool/${pool.ticker}`, state: {pools: props.toBeListed, ticker: pool.ticker}}}>
+    <Link to={{pathname:`${pool.ticker}`, state: {pools: props.toBeListed, ticker: pool.ticker}}}>
     Name: {pool.name}, Ticker: {pool.ticker}
     </Link>
   </li>
