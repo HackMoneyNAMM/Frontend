@@ -7,7 +7,8 @@ import {factoryABI, mumbaiAddress} from "../Settings/FactoryDeploy"
 
 function Header(props) {
   
-  async function connectWallet(){
+  async function connectWallet(e){
+    e.preventDefault()
     const providerOpts = {
     
       //walletconnect: {
@@ -129,10 +130,10 @@ function Header(props) {
       <div>
         <label>Chain: </label>
         <select name="chains" id="chains" onChange={(e) => setActiveChain(e.target.value, props.propObj)}>
-          <optgroup label="Mainnets">
+          {/*<optgroup label="Mainnets">
             <option value="Matic">Polygon</option>
             <option value="Arbitrum One">Arbitrum</option>
-          </optgroup>
+          </optgroup>*/}
           <optgroup label="Testnets">
             <option value="Matic Mumbai">Mumbai</option>
             <option value="Arbitrum Testnet">Arbitrum Testnet</option>

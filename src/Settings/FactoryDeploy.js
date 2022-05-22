@@ -1,54 +1,5 @@
-export const mumbaiAddress = "0x614b558be047afe95d29102a54065b6d9d554725"
+export const mumbaiAddress = "0x8caf6ac933e70af0d76af7960338ed123e875b5e"
 export const factoryABI = [
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "poolName",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "poolTicker",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "poolId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "poolAddress",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address[]",
-        "name": "tokenAddresses",
-        "type": "address[]"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "sigma",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "eta",
-        "type": "uint256"
-      }
-    ],
-    "name": "newPoolEvent",
-    "type": "event"
-  },
   {
     "anonymous": false,
     "inputs": [
@@ -60,6 +11,25 @@ export const factoryABI = [
       }
     ],
     "name": "pong",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "poolDeploy",
     "type": "event"
   },
   {
@@ -78,6 +48,11 @@ export const factoryABI = [
         "internalType": "address[]",
         "name": "tokens",
         "type": "address[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "tokenNames",
+        "type": "string[]"
       },
       {
         "internalType": "uint256",

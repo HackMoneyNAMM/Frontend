@@ -9,16 +9,16 @@ import { CreatePoolPage } from './PoolPage/CreatePoolPage';
 
 const supportedChainsInfo = {
   polygon: {
-    mainnet: {
-      name: "Matic",
-      rpc: "https://polygon-rpc.com/",
-      chainId: "0x89",
-      tokenName: "Matic",
-      tokenDecimals: 18,
-      tokenSymbol: "MM",
-      blockExplorer: "https://polygonscan.com/",
-      iconUrl: ""
-    },
+    // mainnet: {
+    //   name: "Matic",
+    //   rpc: "https://polygon-rpc.com/",
+    //   chainId: "0x89",
+    //   tokenName: "Matic",
+    //   tokenDecimals: 18,
+    //   tokenSymbol: "MM",
+    //   blockExplorer: "https://polygonscan.com/",
+    //   iconUrl: ""
+    // },
     testnet: {
       name: "Matic Mumbai",
       rpc: "https://rpc-mumbai.matic.today",
@@ -32,16 +32,16 @@ const supportedChainsInfo = {
   },
 
   arbitrum: {
-    mainnet: {
-      name: "Arbitrum One",
-      rpc: "https://arb1.arbitrum.io/rpc",
-      chainId: "0xa4b1",
-      tokenName: "Matic",
-      tokenDecimals: 18,
-      tokenSymbol: "MM",
-      blockExplorer: "https://arbiscan.io/",
-      iconUrl: ""
-    },
+    // mainnet: {
+    //   name: "Arbitrum One",
+    //   rpc: "https://arb1.arbitrum.io/rpc",
+    //   chainId: "0xa4b1",
+    //   tokenName: "Matic",
+    //   tokenDecimals: 18,
+    //   tokenSymbol: "MM",
+    //   blockExplorer: "https://arbiscan.io/",
+    //   iconUrl: ""
+    // },
     testnet: {
       name: "Arbitrum Testnet",
       rpc: "https://rinkeby.arbitrum.io/rpc",
@@ -66,7 +66,7 @@ export default function App(props) {
   const [provider, setProvider] = useState(null)
   const [signer, setSigner] = useState(null)
     
-  const [activeChain, setActiveChain] = useState(supportedChainsInfo.polygon.mainnet)
+  const [activeChain, setActiveChain] = useState(supportedChainsInfo.polygon.testnet)
 
   const location = useLocation()
 
