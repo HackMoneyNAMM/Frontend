@@ -5,6 +5,7 @@ import PoolPage from './PoolPage/PoolPage';
 import SwapPage from './SwapPage/SwapPage';
 import HomePage from './HomePage/HomePage'
 import Header from './header/Header'
+import SinglePool from './PoolPage/SinglePool';
 import { CreatePoolPage } from './PoolPage/CreatePoolPage';
 
 const supportedChainsInfo = {
@@ -114,7 +115,14 @@ export default function App(props) {
                 propObj={propObj}
                 pageId={Date.now()}
               />
-            
+            </Route>
+
+            <Route path="/pool/:poolTicker">
+              <Header propObj={propObj}/>
+              <SinglePool
+                propObj={propObj}
+                pageId={Date.now()}
+              />
             </Route>
         </Switch>
     );
