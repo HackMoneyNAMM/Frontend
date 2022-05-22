@@ -29,7 +29,7 @@ const supportedChainsInfo = {
       tokenSymbol: "MM",
       blockExplorer: "https://mumbai.polygonscan.com/",
       iconUrl: "",
-      deployAddr: "0x8caf6ac933e70af0d76af7960338ed123e875b5e"
+      deployAddr: "0x5f3e0a4fffcd7fd90912cfa55390c91190d2d54d"
     }
   },
 

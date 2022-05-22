@@ -45,7 +45,7 @@ function SwapPage(props) {
   }
 
   async function getPools() {
-    const endpoint = "https://api.thegraph.com/subgraphs/name/ewitulsk/hackmoney-namm";
+    const endpoint = "https://api.thegraph.com/subgraphs/id/QmS3TSk3HnR8UxKUnFxLf3tnZVCAhAcEu1A8uvf88p6X9X";
     const headers = {
       "content-type": "application/json"
     };
@@ -108,13 +108,15 @@ function SwapPage(props) {
 
   async function handleSwap(e){
     e.preventDefault()
-
+    
     let amountIn = e.target.amountIn.value
     //let bigIn = bigify(amountIn)
     //console.log(bigIn)
 
     let indexOfTokenGiven = findIndex(token1Addr, tradePool.tokenAddresses)
     let indexOfTargetToken = findIndex(token2Addr, tradePool.tokenAddresses)
+
+    await approve(bigify(amountIn), token1Addr);
 
     console.log(indexOfTokenGiven)
     console.log(indexOfTargetToken)
@@ -139,6 +141,14 @@ function SwapPage(props) {
   //   console.log(amount);
   //   setReleaseAmount(amount.toString())
   // }
+
+  async function approve(amount, assetAddr){
+    const bigAmount = bigify(amount)
+    const contract = new ethers.Contract(assetAddr, ierc20ABI, props.propObj.provider);
+    const contractWithSigner = contract.connect(props.propObj.signer);
+    const bal = await contractWithSigner.increaseAllowance(tradePool.poolAddr, bigAmount);
+    console.log(bal);
+    }
 
   const tokenMap = tokens.map((token) => <option onClick={(e)=>handleToken1Change(e, token)} key={String(token.poolId).concat(String(token.tokenAddress))}>{token.tokenName}</option>)
   const tradePoolMap = tradePool ? tradePool.tokenNameObjs.map((token) => <option key={String(token.tokenAddress).concat(String(token.tokenName))} value={token.tokenAddress}>{token.tokenName}</option>) : null

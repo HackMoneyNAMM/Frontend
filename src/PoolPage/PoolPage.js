@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 const axios = require("axios");
-const endpoint = "https://api.thegraph.com/subgraphs/name/ewitulsk/hackmoney-namm";
+const endpoint = "https://api.thegraph.com/subgraphs/id/QmS3TSk3HnR8UxKUnFxLf3tnZVCAhAcEu1A8uvf88p6X9X";
 const headers = {
   "content-type": "application/json"
 };
@@ -12,7 +12,7 @@ function PoolList(props) {
   const poolList = props.toBeListed.map((pool) => 
   <li key={pool.name}>
     <Link to={{pathname:`${pool.poolId}`, state: {pools: props.toBeListed, poolId: pool.poolId}}}>
-    Name: {pool.name}, Ticker: {pool.poolId}
+    Name: {pool.name}, Pool Id: {pool.poolId}
     </Link>
   </li>
   );
