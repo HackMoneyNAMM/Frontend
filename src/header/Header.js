@@ -119,7 +119,7 @@ function Header(props) {
   return (
     <nav className="grid grid-cols-5 gap 4">
       <div>
-        <Link to={"/"}>LOGO</Link>
+        <Link to={"/"}>Home</Link>
       </div>
       <div>
         <Link to={"/swap-page"}>Swap</Link>

@@ -11,7 +11,7 @@ function HomePage(props) {
     <div key={props.pageId}>
       
       <h1 className="text-3xl font-bold underline">
-        Welcome to our Nested AMM
+        Welcome to The ERPPS Protocol
       </h1>
       <div>
       </div>

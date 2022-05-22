@@ -1,6 +1,10 @@
 import { useEffect, useState} from "react";
 import React from "react";
 import { ReactDOM } from "react-dom";
+import { poolABI } from "../Settings/PoolDeploy";
+import { ierc20ABI } from "../Settings/IERC20";
+import { ethers, BigNumber } from "ethers";
+
 const axios = require("axios");
 
 function SwapPage(props) {
@@ -10,6 +14,7 @@ function SwapPage(props) {
   const [tradePool, setTradePool] = useState(null);
   const [token1Addr, setToken1Addr] = useState(null);
   const [token2Addr, setToken2Addr] = useState(null);
+  const [releaseAmount, setReleaseAmount] = useState(null);
 
   function tokenExists(tokenArr, tokenAddr, poolId){
     for(let i=0; i<tokenArr.length; i++){
@@ -84,16 +89,56 @@ function SwapPage(props) {
 
   function handleToken2Change(e){
     e.preventDefault()
-    let token = e.target.value;
-    setToken2Addr(token.tokenAddress)
-    
-
+    let tokenAddress = e.target.value;
+    console.log("Setting Token Addr 2")
+    setToken2Addr(tokenAddress)
   }
 
-  function handleSwap(e){
+  function findIndex(addr, arr){
+    for(let i=0; i<arr.length; i++){
+      if(arr[i] == addr){
+        return i;
+      }
+    }
+  }
+
+  function bigify(num){
+    return BigNumber.from(num).mul( ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)) )
+  }
+
+  async function handleSwap(e){
     e.preventDefault()
-    console.log("Swappin!")
+
+    let amountIn = e.target.amountIn.value
+    //let bigIn = bigify(amountIn)
+    //console.log(bigIn)
+
+    let indexOfTokenGiven = findIndex(token1Addr, tradePool.tokenAddresses)
+    let indexOfTargetToken = findIndex(token2Addr, tradePool.tokenAddresses)
+
+    console.log(indexOfTokenGiven)
+    console.log(indexOfTargetToken)
+
+    const contract = new ethers.Contract(tradePool.poolAddr, poolABI, props.propObj.provider);
+    const contractWithSigner = contract.connect(props.propObj.signer);
+    const tx = await contractWithSigner.swap(indexOfTokenGiven, amountIn, indexOfTargetToken);
+
   }
+
+  // async function calcRelease(){
+  //   let indexOfTokenGiven = findIndex(token1Addr, tradePool.tokenAddresses)
+  //   let indexOfTargetToken = findIndex(token2Addr, tradePool.tokenAddresses)
+
+  //   console.log(indexOfTokenGiven)
+  //   console.log(indexOfTargetToken)
+
+
+  //   const contract = new ethers.Contract(tradePool.poolAddr, ierc20ABI, props.propObj.provider);
+  //   const contractWithSigner = contract.connect(props.propObj.signer);
+  //   const amount = await contractWithSigner.calcTokensToRelease(indexOfTokenGiven, bigify(amount), indexOfTargetToken);
+  //   console.log(amount);
+  //   setReleaseAmount(amount.toString())
+  // }
 
   const tokenMap = tokens.map((token) => <option onClick={(e)=>handleToken1Change(e, token)} key={String(token.poolId).concat(String(token.tokenAddress))}>{token.tokenName}</option>)
   const tradePoolMap = tradePool ? tradePool.tokenNameObjs.map((token) => <option key={String(token.tokenAddress).concat(String(token.tokenName))} value={token.tokenAddress}>{token.tokenName}</option>) : null
@@ -104,31 +149,35 @@ function SwapPage(props) {
 
   function SwapComponent(){
     return(
-      <div>
+    <div>
+      <label>
+        In Token:
+        <select name="inToken">
+          {tokenMap}
+        </select>
+      </label>
+
+      <label>
+        Out Token:
+        <select name="outToken" onChange={handleToken2Change}>
+                {tradePoolMap}
+        </select>
+      </label>
       
-          <label>
-            In Token:
-            <select name="inToken">
-              {tokenMap}
-            </select>
-          </label>
 
-          <label>
-            Amount
-            <input/>
-          </label>
-
-          <select name="outToken" onChange={handleToken2Change}>
-              {tradePoolMap}
-          </select>
-
-          <label>
-            Amount Output
-            <input/>
-          </label>
-          
-          <button type="submit">Swap</button>
-      </div>
+      <form onSubmit={handleSwap}>
+        <label>
+          Amount
+          <input name="amountIn"/>
+        </label>
+        <button>Swap</button>
+        {
+          //<button onClick={calcRelease}>Calc</button>
+        }
+      </form>
+      
+    </div>
+      
     )
   }
 

@@ -80,7 +80,7 @@ function SinglePool(props) {
     }
 
     function bigify(num){
-        return ethers.BigNumber.from(num).mul( BigNumber.from(10).pow(BigNumber.from(18)) )
+        return BigNumber.from(num).mul( BigNumber.from(10).pow(BigNumber.from(18)) )
     }
 
     async function approve(e, amount, asset){
